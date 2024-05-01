@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1>麻雀待ち牌計算結果</h1>
+{% if result == [] %}
+  <p>待ち牌はありません!</p>
+{% else %}
+  {% for pai in result %}
+    <p>{{ pai }}</p>
+  {% endfor %}
+{% endif %}
+
+<a href="/">タイトルに戻る</a>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1>麻雀待ち牌計算アプリ結果1</h1>
+{% if result == -1 %}
+<p>あがれる状態です!</p>
+{% else %}
+<p>まだあがることはできません!</p>
+{% endif %}
+
+<a href="/">タイトルに戻る</a>
+
+{% endblock %}
