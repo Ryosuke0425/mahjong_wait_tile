@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1>どの牌を切れば聴牌できるかを計算する</h1>
+<h2>自分の牌14枚を入力</h2>
+
+
+<form action = "/what_to_discard" method="POST">
+    <p>
+        <label>萬子<input type="number" name="man"></label>
+        <label>筒子<input type="number" name="pin"></label>
+        <label>索子<input type="number" name="sou"></label>
+        <label>字牌<input type="number" name="honors"></label>    
+    </p>
+    <p><input type="submit" value="計算"></p>
+
+
+</form>
+
+
+
+
+<a href="/">タイトルに戻る</a>
+
+{% endblock %}

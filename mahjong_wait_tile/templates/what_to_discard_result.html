@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<h1>何切る計算結果</h1>
+{% for i in range(14) %}
+  {% if result_1[i] != [] %}
+    <p>
+        <img src={{ "./img/" + result_2[i][0] + result_2[i][1] + ".png" }} alt="画像">
+        を切れば、待ち牌は
+    {% for pai in result_1[i] %}
+      <img src={{ "./img/" + pai[0] + pai[1] + ".png" }} alt="画像">
+    {% endfor %}
+    </p>
+  {% endif %}
+{% endfor %}
+
+
+
+<a href="/">タイトルに戻る</a>
+
+<p><img src="img/ji1.png" alt="テスト画像" width="30" height="30"></p>
+
+
+{% endblock %}
