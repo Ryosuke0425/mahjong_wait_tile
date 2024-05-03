@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1>麻雀待ち牌計算結果</h1>
+{% if result_1 == [] %}
+  <p>待ち牌はありません!</p>
+{% else %}
+  {% for i in range(ran) %}
+    <img src={{ "./img/" + result_1[i][0] + result_1[i][1] + ".png" }} alt="画像">
+  {% endfor %}
+{% endif %}
+
+<a href="/">タイトルに戻る</a>
+
+<p><img src="img/ji1.png" alt="テスト画像" width="30" height="30"></p>
+
+
+{% endblock %}

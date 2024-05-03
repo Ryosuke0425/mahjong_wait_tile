@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1>上がり牌計算</h1>
+
+
+
+<form action = "/win_tile" method="POST">
+    <p>
+        <label>萬子<input type="text" name="man"></label>
+        <label>筒子<input type="text" name="pin"></label>
+        <label>索子<input type="text" name="sou"></label>
+        <label>字牌<input type="text" name="honors"></label>    
+    </p>
+    <p><input type="submit" value="計算"></p>
+
+
+</form>
+
+
+
+
+<a href="/">タイトルに戻る</a>
+
+{% endblock %}
