@@ -1,25 +1,20 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h1>上がり牌計算</h1>
+<h2 style="text-align: center;">待ち牌計算</h2>
 
-
-
-<form action = "/win_tile" method="POST">
-    <p>
-        <label>萬子<input type="text" name="man"></label>
-        <label>筒子<input type="text" name="pin"></label>
-        <label>索子<input type="text" name="sou"></label>
-        <label>字牌<input type="text" name="honors"></label>    
-    </p>
-    <p><input type="submit" value="計算"></p>
-
-
+<form class="m-5" action="/win_tile" method="POST">
+    <div class="form-group" style="text-align: center;">
+      <label class="form-label">萬子<input type="number" class="form-control" name="man"></label>
+      <label class="form-label">筒子<input type="number" class="form-control" name="pin"></label>
+      <label class="form-label">筒子<input type="number" class="form-control" name="sou"></label>
+      <label class="form-label">字牌<input type="number" class="form-control" name="honors"></label>
+    </div>
+    <div style="text-align: center; margin-top: auto;"><button type="submit" class="btn btn-primary">計算</button></div>    
 </form>
 
 
 
 
-<a href="/">タイトルに戻る</a>
 
 {% endblock %}

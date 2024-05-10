@@ -1,12 +1,15 @@
-from flask import Flask,render_template,request,redirect
+from flask import Flask,render_template,request,redirect,url_for
 from mahjong.hand_calculating.hand import HandCalculator
 from mahjong.tile import TilesConverter
 from mahjong.shanten import Shanten
+from mahjong.hand_calculating.hand_config import HandConfig, OptionalRules
+from mahjong.meld import Meld
+from mahjong.constants import EAST, SOUTH, WEST, NORTH
 
 
 
 
-app = Flask(__name__,static_folder="./templates/img")
+app = Flask(__name__,static_folder="./static")
 
 SIZE = 14
 
@@ -22,23 +25,106 @@ def can_done():
     if request.method == 'GET':
         return render_template('can_done.html')
     else:
-        #SIZE = 4
-        shanten = Shanten() 
+        calculator = HandCalculator()
         man = request.form.get('man')
         pin = request.form.get('pin')
         sou = request.form.get('sou')
         honors = request.form.get('honors')
-        if (len(man)+len(pin) + len(sou) + len(honors)) != 14: return render_template("error.html")
-        try:
-            tiles = TilesConverter.string_to_34_array(man=man,pin=pin,sou=sou,honors=honors)
-            result = shanten.calculate_shanten(tiles)
-        except (ValueError,AssertionError,IndexError):
-            return render_template("error.html")
-        if result == -1:
-            print('あがれる形です!')
+
+        if '0' in (man+pin+sou+honors):
+            has_aka_dora = True
         else:
-            print('まだあがることができません!')
-        return render_template('can_done_result.html',result=result)
+            has_aka_dora = False
+        
+        print(has_aka_dora)
+
+        tiles = TilesConverter.string_to_136_array(man=man, pin=pin, sou=sou,honors=honors,has_aka_dora=has_aka_dora)
+        dora_man = request.form.get('dora_man')
+        dora_pin = request.form.get('dora_pin')
+        dora_sou = request.form.get('dora_sou')
+        dora_honors = request.form.get('dora_honors')
+        doras = TilesConverter.string_to_136_array(man=dora_man, pin=dora_pin, sou=dora_sou,honors=dora_honors)
+        dora_indicators = []
+        for dora in doras:
+            dora_indicators.append(dora)
+
+
+
+
+
+
+
+
+        melds = []
+        for i in range(1,5):
+            naki_i_check = request.form.get('naki_'+str(i)+'_check')
+            if  naki_i_check == 'on':
+                naki_i = request.form.get("naki_" + str(i))
+                naki_i_type = request.form.get("naki_" + str(i) + "_type")
+                naki_i_num = request.form.get("naki_" + str(i) + "_num")
+                melds.append(make_melds(naki_i,naki_i_type,naki_i_num))
+                print(naki_i,naki_i_check,naki_i_num,naki_i_type)
+        
+
+        is_tumo = request.form.get("is_tumo")
+        is_tumo = bool(int(is_tumo))
+
+        win_tile_type = request.form.get('win_tile_type')
+        win_tile_num = request.form.get('win_tile_num')
+        win_tile = make_win_tile(win_tile_type,win_tile_num)
+
+        round_wind = request.form.get('round_wind')
+        round_wind = return_wind(round_wind)
+        player_wind = request.form.get('player_wind')
+        player_wind = return_wind(player_wind)
+
+        has_open_tanyao = on_to_true(request.form.get('has_open_tanyao'))
+
+        is_riichi = on_to_true(request.form.get('is_riichi'))
+        is_daburu_riichi = on_to_true(request.form.get('is_daburu_riichi'))
+        #is_riichi = True if is_riichi == "on" else False
+        is_ippatsu = on_to_true(request.form.get('is_ippatsu'))
+        #is_ippatsu = True if is_ippatsu == "on" else False
+        is_haitei = on_to_true(request.form.get('is_haitei'))
+        #is_haitei = True if is_haitei == "on" else False
+        is_houtei = on_to_true(request.form.get('is_houtei'))
+        #is_houtei = True if is_houtei == "on" else False 
+        is_chankan = on_to_true(request.form.get('is_chankan'))
+        #is_chankan = True if is_chankan == "on" else False      
+        is_tenhou = on_to_true(request.form.get('is_tenhou'))
+        is_renhou = on_to_true(request.form.get('is_renhou'))
+        is_chiihou = on_to_true(request.form.get('is_chiihou')) 
+
+        result = calculator.estimate_hand_value(tiles, win_tile, melds=melds,dora_indicators=dora_indicators,
+    config=HandConfig(is_riichi=is_riichi, is_daburu_riichi=is_daburu_riichi, is_tsumo=is_tumo, is_ippatsu=is_ippatsu, is_haitei=is_haitei,is_houtei=is_houtei,
+                      is_tenhou=is_tenhou,is_renhou=is_renhou,is_chiihou=is_chiihou,
+                      player_wind=player_wind, round_wind=round_wind,
+                      options=OptionalRules(has_open_tanyao=has_open_tanyao,has_aka_dora=has_aka_dora)))
+        print(type(has_open_tanyao))
+        print(result.yaku)
+
+        return render_template('can_done_result.html')
+
+
+
+
+
+
+
+
+
+
+        #if (len(man)+len(pin) + len(sou) + len(honors)) != 14: return render_template("error.html")
+        #try:
+        #    tiles = TilesConverter.string_to_34_array(man=man,pin=pin,sou=sou,honors=honors)
+        #    result = shanten.calculate_shanten(tiles)
+        #except (ValueError,AssertionError,IndexError):
+        #    return render_template("error.html")
+        #if result == -1:
+        #    print('あがれる形です!')
+        #else:
+        #    print('まだあがることができません!')
+        #return render_template('can_done_result.html',result=result)
 
 
 
@@ -142,8 +228,70 @@ def what_to_discard():
 
 
 
+def make_win_tile(win_tile_type,win_tile_num):
+    man = ''
+    pin = ''
+    sou = ''
+    honors = ''
+    if win_tile_type == 'man':
+        man += win_tile_num
+    elif win_tile_type == 'pin':
+        pin += win_tile_num
+    elif win_tile_type == 'sou':
+        sou += win_tile_num
+    elif win_tile_type == 'honors':
+        honors += win_tile_num 
+    return TilesConverter.string_to_136_array(man=man,pin=pin,sou=sou,honors=honors)[0]
 
 
+def return_wind(wind):
+    if wind == "east":
+        return EAST
+    elif wind == "south":
+        return SOUTH
+    elif wind == "west":
+        return WEST
+    elif wind == "north":
+        return NORTH
+        
+def on_to_true(s):
+    result = True if s == "on" else False
+    return result
+
+
+
+
+
+
+
+
+
+def make_melds(naki,naki_type,naki_num):
+    man = ''
+    pin = ''
+    sou = ''
+    honors = ''
+    if naki_type == 'man':
+        man += naki_num
+    elif naki_type == 'pin':
+        pin += naki_num
+    elif naki_type == 'sou':
+        sou += naki_num
+    elif naki_type == 'honors':
+        honors += naki_num 
+    if '0' in naki_num:
+        aka_dora = True
+    else:
+        aka_dora = False
+    
+    if naki == 'chi':
+        return Meld(meld_type=Meld.CHI, tiles=TilesConverter.string_to_136_array(man=man,pin=pin,sou=sou,honors=honors,has_aka_dora=aka_dora))
+    elif naki == 'pon':
+        return Meld(meld_type=Meld.PON, tiles=TilesConverter.string_to_136_array(man=man,pin=pin,sou=sou,honors=honors,has_aka_dora=aka_dora))
+    elif naki == 'kan_false':
+        return Meld(meld_type=Meld.KAN, tiles=TilesConverter.string_to_136_array(man=man,pin=pin,sou=sou,honors=honors,has_aka_dora=aka_dora),opened=False)
+    elif naki == 'kan_true':
+        return Meld(meld_type=Meld.KAN, tiles=TilesConverter.string_to_136_array(man=man,pin=pin,sou=sou,honors=honors,has_aka_dora=aka_dora))
 
 
 

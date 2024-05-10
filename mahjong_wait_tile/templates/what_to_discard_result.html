@@ -2,24 +2,57 @@
 
 
 {% block body %}
-<h1>何切る計算結果</h1>
-{% for i in range(14) %}
-  {% if result_1[i] != [] %}
-    <p>
-        <img src={{ "./img/" + result_2[i][0] + result_2[i][1] + ".png" }} alt="画像">
-        を切れば、待ち牌は
-    {% for pai in result_1[i] %}
-      <img src={{ "./img/" + pai[0] + pai[1] + ".png" }} alt="画像">
-    {% endfor %}
+<h2 style="text-align: center;">何切る計算結果</h2>
+
+{% if result_1[0] != [] %}
+<div class="card w-50 mb-3" style="margin: auto;">
+  <h5 class="card-title">
+    <p class="alert alert-primary" style="text-align: center;"><img src={{ "../static/img/" + result_2[0][0] + result_2[0][1] + ".png" }} alt="画像">
+      を切れば、待ち牌は
     </p>
+  </h5>
+  <div class="card-body" style="margin: auto;">  
+
+    {% for pai in result_1[0] %}
+      <img src={{ "../static/img/" + pai[0] + pai[1] + ".png" }} alt="画像">
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+
+
+
+{% for i in range(1,14) %}
+  {% if result_1[i] != [] and result_1[i] != result_1[i-1] %}
+      <div class="card w-50 mb-3" style="margin: auto;">
+        <h5 class="card-title">
+          <p class="alert alert-primary" style="text-align: center;"><img src={{ "../static/img/" + result_2[i][0] + result_2[i][1] + ".png" }} alt="画像">
+            を切れば、待ち牌は
+          </p>
+        </h5>
+        <div class="card-body" style="margin: auto;">  
+
+          {% for pai in result_1[i] %}
+            <img src={{ "../static/img/" + pai[0] + pai[1] + ".png" }} alt="画像">
+          {% endfor %}
+        </div>
+      </div>
   {% endif %}
 {% endfor %}
 
 
 
-<a href="/">タイトルに戻る</a>
 
-<p><img src="img/ji1.png" alt="テスト画像" width="30" height="30"></p>
+
+
+
+
+
+
+
+
+
 
 
 {% endblock %}

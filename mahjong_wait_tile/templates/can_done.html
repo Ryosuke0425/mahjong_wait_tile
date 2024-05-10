@@ -1,14 +1,136 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h1>麻雀待ち牌計算アプリ</h1>
-<form action = "/can_done" method="POST">
-<p>
-    <label>萬子<input type="text" name="man"></label>
-    <label>筒子<input type="text" name="pin"></label>
-    <label>索子<input type="text" name="sou"></label>
-    <label>字牌<input type="text" name="honors"></label>    
-</p>
-<p><input type="submit" value="送信"></p>
+
+<form action="/can_done" method="POST">
+<div style="text-align: center;">
+    <h2>役を計算する</h2>
+    <h3>自分の牌14枚を入力</h3>
+    
+    <p>
+        萬子<input type="number" name="man">
+        筒子<input type="number" name="pin">
+        索子<input type="number" name="sou">
+        字牌<input type="number" name="honors">
+    </p>
+    <p>
+        上がり牌
+        <input type="radio" name="is_tumo" value="1" checked>自摸
+        <input type="radio" name="is_tumo" value="0">撈魚
+        <input type="radio" name="win_tile_type" value="man" checked>萬子
+        <input type="radio" name="win_tile_type" value="pin">筒子
+        <input type="radio" name="win_tile_type" value="sou">索子
+        <input type="radio" name="win_tile_type" value="honors">字牌
+        <input type="number" name="win_tile_num">
+    </p>
+
+    <p>
+        鳴き1
+        <input type="checkbox" name="naki_1_check" onclick="change1(this.checked);">
+        <fieldset id="naki_1" disabled>
+            <input type="radio" name="naki_1" value="chi" checked>チー
+            <input type="radio" name="naki_1" value="pon">ポン
+            <input type="radio" name="naki_1" value="kan_false">暗槓
+            <input type="radio" name="naki_1" value="kan_true">明槓
+            <input type="radio" name="naki_1_type" value="man" checked>萬子
+            <input type="radio" name="naki_1_type" value="pin">筒子
+            <input type="radio" name="naki_1_type" value="sou">索子
+            <input type="radio" name="naki_1_type" value="honors">字牌
+        <input type="number" name="naki_1_num">
+        </fieldset>
+    </p>
+    <p>
+        鳴き2
+        <input type="checkbox" name="naki_2_check" onclick="change2(this.checked);">
+            <fieldset id="naki_2" disabled>
+            <input type="radio" name="naki_2" value="chi" checked>チー
+            <input type="radio" name="naki_2" value="pon">ポン
+            <input type="radio" name="naki_2" value="kan_false">暗槓
+            <input type="radio" name="naki_2" value="kan_true">明槓
+            <input type="radio" name="naki_2_type" value="man" checked>萬子
+            <input type="radio" name="naki_2_type" value="pin">筒子
+            <input type="radio" name="naki_2_type" value="sou">索子
+            <input type="radio" name="naki_2_type" value="honors">字牌
+            <input type="number" name="naki_2_num">
+        </fieldset>
+    </p>
+    <p>
+        鳴き3
+        <input type="checkbox" name="naki_3_check" onclick="change3(this.checked);">
+        <fieldset id="naki_3" disabled>
+            <input type="radio" name="naki_3" value="chi" checked>チー
+            <input type="radio" name="naki_3" value="pon">ポン
+            <input type="radio" name="naki_3" value="kan_false">暗槓
+            <input type="radio" name="naki_3" value="kan_true">明槓
+            <input type="radio" name="naki_3_type" value="man" checked>萬子
+            <input type="radio" name="naki_3_type" value="pin">筒子
+            <input type="radio" name="naki_3_type" value="sou">索子
+            <input type="radio" name="naki_3_type" value="honors">字牌
+            <input type="number" name="naki_3_num">
+        </fieldset>
+    </p>
+    <p>
+        鳴き4
+        <input type="checkbox" name="naki_4_check" onclick="change4(this.checked);">
+            <fieldset id="naki_4" disabled>
+            <input type="radio" name="naki_4" value="chi" checked>チー
+            <input type="radio" name="naki_4" value="pon">ポン
+            <input type="radio" name="naki_4" value="kan_false">暗槓
+            <input type="radio" name="naki_4" value="kan_true">明槓
+            <input type="radio" name="naki_4_type" value="man" checked>萬子
+            <input type="radio" name="naki_4_type" value="pin">筒子
+            <input type="radio" name="naki_4_type" value="sou">索子
+            <input type="radio" name="naki_4_type" value="honors">字牌
+            <input type="number" name="naki_4_num">
+        </fieldset>
+    </p>
+
+    <p>
+        場風
+        <input type="radio" name="round_wind" value="east" checked>東
+        <input type="radio" name="round_wind" value="south">南
+        <input type="radio" name="round_wind" value="west">西
+        <input type="radio" name="round_wind" value="north">北
+    </p>
+
+    <p>
+        自風
+        <input type="radio" name="player_wind" value="east" checked>東
+        <input type="radio" name="player_wind" value="south">南
+        <input type="radio" name="player_wind" value="west">西
+        <input type="radio" name="player_wind" value="north">北
+    </p>
+    <p>
+        ドラ(表示牌)
+        萬子<input type="number" name="dora_man">
+        筒子<input type="number" name="dora_pin">
+        索子<input type="number" name="dora_sou">
+        字牌<input type="number" name="dora_honors">
+    </p>
+
+    <p>喰いタン<input type="checkbox" name="has_open_tanyao">有り</p>
+
+    <p><input type="checkbox" name="is_riichi">立直</p>
+    <p><input type="checkbox" name="is_daburu_riichi">ダブル立直</p>
+    <p><input type="checkbox" name="is_ippatsu">一発</p>
+    <p><input type="checkbox" name="is_haitei">海底摸月(ハイテイ)</p>
+    <p><input type="checkbox" name="is_houtei">河底撈魚(ホウテイ)</p>
+    <p><input type="checkbox" name="is_rinshan">嶺上開花</p>
+    <p><input type="checkbox" name="is_chankan">槍槓</p>
+    <p><input type="checkbox" name="is_tenhou">天和</p>
+    <p><input type="checkbox" name="is_renhou">人和</p>
+    <p><input type="checkbox" name="is_chiihou">地和</p>
+
+    <p><input type="submit" value="計算"></p>
+
+
+    
+</div>
 </form>
+
+
+<script src="../static/js/can_done.js"></script>
+
+
+
 {% endblock %}
