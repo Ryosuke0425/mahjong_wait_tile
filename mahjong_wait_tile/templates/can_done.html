@@ -2,6 +2,8 @@
 
 {% block body %}
 
+
+<!--
 <form action="/can_done" method="POST">
 <div style="text-align: center;">
     <h2>役を計算する</h2>
@@ -15,18 +17,20 @@
     </p>
     <p>
         上がり牌
-        <input type="radio" name="is_tumo" value="1" checked>自摸
-        <input type="radio" name="is_tumo" value="0">撈魚
+        
+        <input type="radio" id="is_tsumo" name="is_tumo" value="1" checked required onchange="tsumoRonClick(true)" autocomplete="off">自摸
+        <input type="radio" name="is_tumo" value="0" onchange="tsumoRonClick(false)" autocomplete="off">撈魚
         <input type="radio" name="win_tile_type" value="man" checked>萬子
         <input type="radio" name="win_tile_type" value="pin">筒子
         <input type="radio" name="win_tile_type" value="sou">索子
         <input type="radio" name="win_tile_type" value="honors">字牌
         <input type="number" name="win_tile_num">
+        
     </p>
 
     <p>
         鳴き1
-        <input type="checkbox" name="naki_1_check" onclick="change1(this.checked);">
+        <input type="checkbox" class="naki_check" name="naki_1_check" autocomplete="off" onclick="change1(this.checked);">
         <fieldset id="naki_1" disabled>
             <input type="radio" name="naki_1" value="chi" checked>チー
             <input type="radio" name="naki_1" value="pon">ポン
@@ -41,7 +45,7 @@
     </p>
     <p>
         鳴き2
-        <input type="checkbox" name="naki_2_check" onclick="change2(this.checked);">
+        <input type="checkbox" class="naki_check" name="naki_2_check" autocomplete="off" onclick="change2(this.checked);">
             <fieldset id="naki_2" disabled>
             <input type="radio" name="naki_2" value="chi" checked>チー
             <input type="radio" name="naki_2" value="pon">ポン
@@ -56,7 +60,7 @@
     </p>
     <p>
         鳴き3
-        <input type="checkbox" name="naki_3_check" onclick="change3(this.checked);">
+        <input type="checkbox" class="naki_check" name="naki_3_check" autocomplete="off" onclick="change3(this.checked);">
         <fieldset id="naki_3" disabled>
             <input type="radio" name="naki_3" value="chi" checked>チー
             <input type="radio" name="naki_3" value="pon">ポン
@@ -71,7 +75,7 @@
     </p>
     <p>
         鳴き4
-        <input type="checkbox" name="naki_4_check" onclick="change4(this.checked);">
+        <input type="checkbox" class="naki_check" name="naki_4_check" autocomplete="off" onclick="change4(this.checked);">
             <fieldset id="naki_4" disabled>
             <input type="radio" name="naki_4" value="chi" checked>チー
             <input type="radio" name="naki_4" value="pon">ポン
@@ -108,18 +112,18 @@
         字牌<input type="number" name="dora_honors">
     </p>
 
-    <p>喰いタン<input type="checkbox" name="has_open_tanyao">有り</p>
+    <p>喰いタン<input type="checkbox" name="has_open_tanyao" checked>有り</p>
 
-    <p><input type="checkbox" name="is_riichi">立直</p>
-    <p><input type="checkbox" name="is_daburu_riichi">ダブル立直</p>
-    <p><input type="checkbox" name="is_ippatsu">一発</p>
-    <p><input type="checkbox" name="is_haitei">海底摸月(ハイテイ)</p>
-    <p><input type="checkbox" name="is_houtei">河底撈魚(ホウテイ)</p>
-    <p><input type="checkbox" name="is_rinshan">嶺上開花</p>
-    <p><input type="checkbox" name="is_chankan">槍槓</p>
-    <p><input type="checkbox" name="is_tenhou">天和</p>
-    <p><input type="checkbox" name="is_renhou">人和</p>
-    <p><input type="checkbox" name="is_chiihou">地和</p>
+    <p><input type="checkbox" id="is_riichi" name="is_riichi" autocomplete="off" onclick="yakuCheck();">立直</p>
+    <p><input type="checkbox" id="is_daburu_riichi" name="is_daburu_riichi" autocomplete="off" onclick="yakuCheck();">ダブル立直</p>
+    <p><input type="checkbox" id="is_ippatsu" name="is_ippatsu" autocomplete="off" onclick="yakuCheck();">一発</p>
+    <p><input type="checkbox" id="is_haitei" name="is_haitei" autocomplete="off" onclick="yakuCheck();">海底摸月(ハイテイ)</p>
+    <p><input type="checkbox" id="is_houtei" name="is_houtei" disabled autocomplete="off" onclick="yakuCheck();">河底撈魚(ホウテイ)</p>
+    <p><input type="checkbox" id="is_rinshan" name="is_rinshan" autocomplete="off" onclick="yakuCheck();">嶺上開花</p>
+    <p><input type="checkbox" id="is_chankan" name="is_chankan" disabled autocomplete="off" onclick="yakuCheck();">槍槓</p>
+    <p><input type="checkbox" id="is_tenhou" name="is_tenhou" autocomplete="off" onclick="yakuCheck();">天和</p>
+    <p><input type="checkbox" id="is_renhou" name="is_renhou" disabled autocomplete="off" onclick="yakuCheck();">人和</p>
+    <p><input type="checkbox" id="is_chiihou" name="is_chiihou" autocomplete="off" onclick="yakuCheck();">地和</p>
 
     <p><input type="submit" value="計算"></p>
 
@@ -127,6 +131,327 @@
     
 </div>
 </form>
+
+
+-->
+
+
+
+
+
+
+
+
+
+<form action="/can_done" method="POST">
+    
+    <!-- <div class="d-flex align-items-center justify-content-center"> -->
+        
+        <div style="text-align: center;">
+            <div class="form-group">
+                <p>手持ち牌(鳴いたものは除く)</p>
+                <label class="form-label">萬子<input type="text" id="man" class="form-control" name="man"></label>
+                <label class="form-label">筒子<input type="text" id="pin" class="form-control" name="pin"></label>
+                <label class="form-label">索子<input type="text" id="sou" class="form-control" name="sou"></label>
+                <label class="form-label">字牌<input type="text" id="honors" class="form-control" name="honors"></label>
+            </div>
+
+
+
+            <p>
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    上がり牌
+                    <input type="radio" class="btn-check" id="is_tsumo" name="is_tsumo" value="1" checked autocomplete="off" onchange="tsumoRonClick(true);">
+                    <label class="btn btn-outline-primary" for="is_tsumo">ツモ</label>
+                    
+                    <input type="radio" class="btn-check" id="is_not_tsumo" name="is_tsumo" value="0" autocomplete="off" onchange="tsumoRonClick(false);">
+                    <label class="btn btn-outline-primary" for="is_not_tsumo">ロン</label>
+                </div>
+
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="win_tile_type" id="win_tile_man"  value="man" autocomplete="off" checked>
+                    <label class="btn btn-outline-primary" for="win_tile_man">萬子</label>
+                    
+                    <input type="radio" class="btn-check" name="win_tile_type" id="win_tile_pin" value="pin" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="win_tile_pin">筒子</label>
+
+                    <input type="radio" class="btn-check" name="win_tile_type" id="win_tile_sou" value="sou" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="win_tile_sou">索子</label>
+
+                    <input type="radio" class="btn-check" name="win_tile_type" id="win_tile_honors" value="honors" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="win_tile_honors">字牌</label>
+                </div>
+                <label class="form-label"><input type="text" id="win_tile_num" class="form-control" name="win_tile_num" placeholder="数の入力" maxlength="1"></label>
+            </p>
+
+
+            <p>
+                <input type="checkbox" class="btn-check naki_check" id="nakicheck1" name="naki_1_check" autocomplete="off" onclick="change1(this.checked);">
+                <label class="btn btn-outline-primary" for="nakicheck1">鳴1</label>
+                <fieldset id="naki_1" disabled>
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="naki_1" id="naki_1_chi"  value="chi" autocomplete="off" checked onclick="ChiPonClick(1);">
+                        <label class="btn btn-outline-primary" for="naki_1_chi">チー</label>
+                        
+                        <input type="radio" class="btn-check" name="naki_1" id="naki_1_pon"  value="pon" autocomplete="off" onclick="ChiPonClick(1);">
+                        <label class="btn btn-outline-primary" for="naki_1_pon">ポン</label>
+
+                        <input type="radio" class="btn-check" name="naki_1" id="naki_1_kan_false"  value="kan_false" autocomplete="off" onclick="KanClick(1);">
+                        <label class="btn btn-outline-primary" for="naki_1_kan_false">暗槓</label>
+
+                        <input type="radio" class="btn-check" name="naki_1" id="naki_1_kan_true"  value="kan_true" autocomplete="off" onclick="KanClick(1);">
+                        <label class="btn btn-outline-primary" for="naki_1_kan_true">明槓</label>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="naki_1_type" id="naki_1_man"  value="man" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="naki_1_man">萬子</label>
+                        <input type="radio" class="btn-check" name="naki_1_type" id="naki_1_pin"  value="pin" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="naki_1_pin">筒子</label>
+                        <input type="radio" class="btn-check" name="naki_1_type" id="naki_1_sou"  value="sou" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="naki_1_sou">索子</label>
+                        <input type="radio" class="btn-check" name="naki_1_type" id="naki_1_honors"  value="honors" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="naki_1_honors">字牌</label>
+                    </div>
+                    <label class="form-label"><input type="text" id="naki_1_num" class="form-control" name="naki_1_num" placeholder="数の入力" maxlength="3"></label>
+            </fieldset>
+            </p>
+
+            <p>
+                <input type="checkbox" class="btn-check naki_check" id="nakicheck2" name="naki_2_check" autocomplete="off" onclick="change2(this.checked);">
+                <label class="btn btn-outline-primary" for="nakicheck2">鳴2</label>
+                <fieldset id="naki_2" disabled>
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="naki_2" id="naki_2_chi"  value="chi" autocomplete="off" checked onclick="ChiPonClick(2);">
+                        <label class="btn btn-outline-primary" for="naki_2_chi">チー</label>
+                        
+                        <input type="radio" class="btn-check" name="naki_2" id="naki_2_pon"  value="pon" autocomplete="off" onclick="ChiPonClick(2);">
+                        <label class="btn btn-outline-primary" for="naki_2_pon">ポン</label>
+
+                        <input type="radio" class="btn-check" name="naki_2" id="naki_2_kan_false"  value="kan_false" autocomplete="off" onclick="KanClick(2);">
+                        <label class="btn btn-outline-primary" for="naki_2_kan_false">暗槓</label>
+
+                        <input type="radio" class="btn-check" name="naki_2" id="naki_2_kan_true"  value="kan_true" autocomplete="off" onclick="KanClick(2);">
+                        <label class="btn btn-outline-primary" for="naki_2_kan_true">明槓</label>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="naki_2_type" id="naki_2_man"  value="man" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="naki_2_man">萬子</label>
+                        <input type="radio" class="btn-check" name="naki_2_type" id="naki_2_pin"  value="pin" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="naki_2_pin">筒子</label>
+                        <input type="radio" class="btn-check" name="naki_2_type" id="naki_2_sou"  value="sou" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="naki_2_sou">索子</label>
+                        <input type="radio" class="btn-check" name="naki_2_type" id="naki_2_honors"  value="honors" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="naki_2_honors">字牌</label>
+                    </div>
+                    <label class="form-label"><input type="text" id="naki_2_num" class="form-control" name="naki_2_num" placeholder="数の入力" maxlength="3"></label>
+            </fieldset>
+            </p>
+
+
+            <p>
+                <input type="checkbox" class="btn-check naki_check" id="nakicheck3" name="naki_3_check" autocomplete="off" onclick="change3(this.checked);">
+                <label class="btn btn-outline-primary" for="nakicheck3">鳴3</label>
+                <fieldset id="naki_3" disabled>
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="naki_3" id="naki_3_chi"  value="chi" autocomplete="off" checked onclick="ChiPonClick(3);">
+                        <label class="btn btn-outline-primary" for="naki_3_chi">チー</label>
+                        
+                        <input type="radio" class="btn-check" name="naki_3" id="naki_3_pon"  value="pon" autocomplete="off" onclick="ChiPonClick(3);">
+                        <label class="btn btn-outline-primary" for="naki_3_pon">ポン</label>
+
+                        <input type="radio" class="btn-check" name="naki_3" id="naki_3_kan_false"  value="kan_false" autocomplete="off" onclick="KanClick(3);">
+                        <label class="btn btn-outline-primary" for="naki_3_kan_false">暗槓</label>
+
+                        <input type="radio" class="btn-check" name="naki_3" id="naki_3_kan_true"  value="kan_true" autocomplete="off" onclick="KanClick(3);">
+                        <label class="btn btn-outline-primary" for="naki_3_kan_true">明槓</label>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="naki_3_type" id="naki_3_man"  value="man" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="naki_3_man">萬子</label>
+                        <input type="radio" class="btn-check" name="naki_3_type" id="naki_3_pin"  value="pin" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="naki_3_pin">筒子</label>
+                        <input type="radio" class="btn-check" name="naki_3_type" id="naki_3_sou"  value="sou" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="naki_3_sou">索子</label>
+                        <input type="radio" class="btn-check" name="naki_3_type" id="naki_3_honors"  value="honors" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="naki_3_honors">字牌</label>
+                    </div>
+                    <label class="form-label"><input type="text" id="naki_3_num" class="form-control" name="naki_3_num" placeholder="数の入力" maxlength="3"></label>
+            </fieldset>
+            </p>
+
+            <p>
+                <input type="checkbox" class="btn-check naki_check" id="nakicheck4" name="naki_4_check" autocomplete="off" onclick="change4(this.checked);">
+                <label class="btn btn-outline-primary" for="nakicheck4">鳴4</label>
+                <fieldset id="naki_4" disabled>
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="naki_4" id="naki_4_chi"  value="chi" autocomplete="off" checked onclick="ChiPonClick(4);">
+                        <label class="btn btn-outline-primary" for="naki_4_chi">チー</label>
+                        
+                        <input type="radio" class="btn-check" name="naki_4" id="naki_4_pon"  value="pon" autocomplete="off" onclick="ChiPonClick(4);">
+                        <label class="btn btn-outline-primary" for="naki_4_pon">ポン</label>
+
+                        <input type="radio" class="btn-check" name="naki_4" id="naki_4_kan_false"  value="kan_false" autocomplete="off" onclick="KanClick(4);">
+                        <label class="btn btn-outline-primary" for="naki_4_kan_false">暗槓</label>
+
+                        <input type="radio" class="btn-check" name="naki_4" id="naki_4_kan_true"  value="kan_true" autocomplete="off" onclick="KanClick(4);">
+                        <label class="btn btn-outline-primary" for="naki_4_kan_true">明槓</label>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="naki_4_type" id="naki_4_man"  value="man" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="naki_4_man">萬子</label>
+                        <input type="radio" class="btn-check" name="naki_4_type" id="naki_4_pin"  value="pin" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="naki_4_pin">筒子</label>
+                        <input type="radio" class="btn-check" name="naki_4_type" id="naki_4_sou"  value="sou" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="naki_4_sou">索子</label>
+                        <input type="radio" class="btn-check" name="naki_4_type" id="naki_4_honors"  value="honors" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="naki_4_honors">字牌</label>
+                    </div>
+                    <label class="form-label"><input type="text" id="naki_4_num" class="form-control" name="naki_4_num" placeholder="数の入力" maxlength="3"></label>
+            </fieldset>
+            </p>
+
+
+
+
+
+            <!-- <div style="text-align: center;"> -->
+                <div class="form-group">
+                    <p>ドラ(表示牌)</p>
+                    <label class="form-label">萬子<input type="number" id="dora_man" class="form-control" name="dora_man"></label>
+                    <label class="form-label">筒子<input type="number" id="dora_pin" class="form-control" name="dora_pin"></label>
+                    <label class="form-label">索子<input type="number" id="dora_sou" class="form-control" name="dora_sou"></label>
+                    <label class="form-label">字牌<input type="number" id="dora_honors" class="form-control" name="dora_honors"></label>
+                </div>
+
+
+
+
+
+
+
+
+                  <p>
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                自風
+                <input type="radio" class="btn-check" name="player_wind" id="player_east" value="east" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="player_east">東</label>
+                
+                <input type="radio" class="btn-check" name="player_wind" id="player_south" value="south" autocomplete="off">
+                <label class="btn btn-outline-primary" for="player_south">南</label>
+                
+                <input type="radio" class="btn-check" name="player_wind" id="player_west" value="west" autocomplete="off">
+                <label class="btn btn-outline-primary" for="player_west">西</label>
+
+                <input type="radio" class="btn-check" name="player_wind" id="player_north" value="north" autocomplete="off">
+                <label class="btn btn-outline-primary" for="player_north">北</label>
+            </div>
+        </p>
+
+        <p>
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                場風
+                <input type="radio" class="btn-check" name="round_wind" id="round_east" value="east" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="round_east">東</label>
+                
+                <input type="radio" class="btn-check" name="round_wind" id="round_south" value="south" autocomplete="off">
+                <label class="btn btn-outline-primary" for="round_south">南</label>
+                
+                <input type="radio" class="btn-check" name="round_wind" id="round_west" value="west" autocomplete="off">
+                <label class="btn btn-outline-primary" for="round_west">西</label>
+
+                <input type="radio" class="btn-check" name="round_wind" id="round_north" value="north" autocomplete="off">
+                <label class="btn btn-outline-primary" for="round_north">北</label>
+            </div>
+        </p>
+
+
+<p>    
+    <input type="checkbox" class="btn-check yaku" id="has_open_tanyao" name="has_open_tanyao" checked autocomplete="off">
+    <label class="btn btn-outline-primary" for="has_open_tanyao">喰いタン有</label>
+</p>
+<p>
+    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+        <input type="checkbox" class="btn-check yaku" id="is_riichi" name="is_riichi" autocomplete="off" onclick="yakuCheck();">
+        <label class="btn btn-outline-primary" for="is_riichi">立直</label>
+      
+        <input type="checkbox" class="btn-check yaku" id="is_daburu_riichi" name="is_daburu_riichi" autocomplete="off" onclick="yakuCheck();">
+        <label class="btn btn-outline-primary" for="is_daburu_riichi">ダブル立直</label>
+      
+        <input type="checkbox" class="btn-check yaku" id="is_ippatsu" name="is_ippatsu" disabled autocomplete="off" onclick="yakuCheck();">
+        <label class="btn btn-outline-primary" for="is_ippatsu">一発</label>
+      </div>
+    </p>
+
+    <p>
+        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+            <input type="checkbox" class="btn-check yaku" id="is_haitei" name="is_haitei" autocomplete="off" onclick="yakuCheck();">
+            <label class="btn btn-outline-primary" for="is_haitei">海底摸月(ハイテイ)</label>
+          
+            <input type="checkbox" class="btn-check yaku" id="is_houtei" name="is_houtei" disabled autocomplete="off" onclick="yakuCheck();">
+            <label class="btn btn-outline-primary" for="is_houtei">河底撈魚(ホウテイ)</label>
+          </div>
+    </p>
+    <p>
+            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                <input type="checkbox" class="btn-check yaku" id="is_rinshan" name="is_rinshan" autocomplete="off" onclick="yakuCheck();">
+                <label class="btn btn-outline-primary" for="is_rinshan">嶺上開花</label>
+              
+                <input type="checkbox" class="btn-check yaku" id="is_chankan" name="is_chankan" disabled autocomplete="off" onclick="yakuCheck();">
+                <label class="btn btn-outline-primary" for="is_chankan">槍槓</label>
+              </div>
+            </p>
+
+    <p>
+      <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+        <input type="checkbox" class="btn-check yaku" id="is_tenhou" name="is_tenhou" autocomplete="off" onclick="yakuCheck();">
+        <label class="btn btn-outline-primary" for="is_tenhou">天和</label>
+        <input type="checkbox" class="btn-check yaku" id="is_renhou" name="is_renhou" disabled autocomplete="off" onclick="yakuCheck();">
+        <label class="btn btn-outline-primary" for="is_renhou">人和</label>
+        <input type="checkbox" class="btn-check yaku" id="is_chiihou" name="is_chiihou" autocomplete="off" onclick="yakuCheck();">
+        <label class="btn btn-outline-primary" for="is_chiihou">地和</label>
+      </div>
+    </p>
+
+    <button type="submit" class="btn btn-primary" onclick="return check();">計算</button>
+
+
+
+</div>
+</form>
+<p></p>
+
+
+
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p>q</p>
+
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p>q</p>
+<p></p>
+<p></p>
+<p></p>
+
 
 
 <script src="../static/js/can_done.js"></script>

@@ -1,13 +1,114 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h1>麻雀待ち牌計算アプリ結果1</h1>
+<div style="text-align: center; margin: auto;">
+<h2>点数計算結果</h2>
+<!--
 {% if result == -1 %}
 <p>あがれる状態です!</p>
 {% else %}
 <p>まだあがることはできません!</p>
 {% endif %}
+-->
+
+<!--
+{% if yakus == [] %}
+<p>役がありません!</p>
+{% else %}
+
+{% for yaku in yakus %}
+<p>{{ yaku }}</p>
+
+{% endfor %}
+{% if additional == 0 %}
+<p>ロン:{{ main }}点</p>
+{% elif main == additional %}
+<p>親のツモ</p>
+<p>子:{{ additional }}点</p>
+{% else %}
+<p>子のツモ</p>
+<p>親:{{ main }}点</p>
+<p>子:{{ additional }}点</p>
+{% endif %}
+
+{% endif %}
 
 <a href="/">タイトルに戻る</a>
 
+
+
+<div class="card text-bg-dark mb-3" style="max-width: 18rem; margin: auto;">
+      <p class="card-text">平和</p>
+</div>
+
+<div class="card text-bg-light mb-3" style="max-width: 18rem; margin: auto;">
+    <p class="card-text">立直</p>
+</div>
+
+
+
+-->
+
+
+
+{% if yakus == [] %}
+    <div class="card text-bg-danger mb-3" style="max-width: 18rem; margin: auto;">
+        <h4 class="card-text">役がありません!!</h4>
+    </div>
+{% else %}
+
+{% for yaku in yakus %}
+    <div class="card text-bg-light mb-3" style="max-width: 18rem; margin: auto;">
+        <div class="card-body">
+            <h6 class="card-text">{{ yaku }}</h6>
+        </div>
+    </div>
+{% endfor %}
+{% if additional == 0 %}
+    <div class="card text-bg-danger mb-3" style="max-width: 18rem; margin: auto;">
+        <div class="card-header"><h6>ロン</h6></div>
+        <div class="card-body">
+          <h6 class="card-text">            
+            <p>{{ han }}翻{{ fu }}符</p>
+            <p>{{ yaku_level }}</p>
+            <p>{{ main }}点</p>
+          </h6>
+        </div>
+    </div>
+{% elif main == additional %}
+<div class="card text-bg-danger mb-3" style="max-width: 18rem; margin: auto;">
+    <div class="card-header"><h6>親のツモ</h6></div>
+    <div class="card-body">
+      <h6 class="card-text">
+        
+        <p>{{ han }}翻{{ fu }}符</p>
+        <p>{{ yaku_level }}</p>
+        <p>{{ additional }}点オール</p>
+        <p>合計:{{ total }}点</p>
+      </h6>
+    </div>
+</div>
+{% else %}
+<div class="card text-bg-danger mb-3" style="max-width: 18rem; margin: auto;">
+    <div class="card-header">子のツモ</div>
+    <div class="card-body">
+      <h4 class="card-text">
+        <p>{{ han }}翻{{ fu }}符</p>
+        <p>{{ yaku_level }}</p>
+        
+        <p>親:{{ main }}点</p>
+        <p>子:{{ additional }}点</p>
+        <p>合計:{{ total }}点</p>
+      </h4>
+    </div>
+</div>
+{% endif %}
+
+{% endif %}
+
+
+
+
+
+</div>
 {% endblock %}
