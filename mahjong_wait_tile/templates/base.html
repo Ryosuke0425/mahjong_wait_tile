@@ -3,9 +3,15 @@
     <head>
         <meta charset="utf-8">
         <title>麻雀待ち牌計算アプリ</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}"
         {% block head %}{% endblock %}
     </head>
     <body>
+        <nav class="navbar" style="background-color: #e3f2fd;">
+            <div class="container-fluid justify-content-around">
+              <a class="navbar-brand" href="/" style="font-size: 2rem; text-align: center;">麻雀計算アプリ</a>
+            </div>
+          </nav>
         {% block body %}{% endblock %}
     </body>
 </html>

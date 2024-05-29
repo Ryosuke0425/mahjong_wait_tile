@@ -1,18 +1,23 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h1>麻雀待ち牌計算結果</h1>
+<h2 style="text-align: center;">麻雀待ち牌計算結果</h2>
 {% if result_1 == [] %}
-  <p>待ち牌はありません!</p>
+  <h3 class="alert alert-danger" style="margin: auto;"><p style="text-align: center;">待ち牌はありません!</p></h3>
 {% else %}
+<div class="card w-50 mb-3" style="margin: auto;">
+  <h5 class="card-title" style="text-align: center;"><p class="alert alert-primary">あなたの待ち牌は</p></h5>
+  <div class="card-body">  
   {% for i in range(ran) %}
-    <img src={{ "./img/" + result_1[i][0] + result_1[i][1] + ".png" }} alt="画像">
+    <img src={{ "../static/img/" + result_1[i][0] + result_1[i][1] + ".png" }} alt="画像">
   {% endfor %}
+</div>
+</div>
 {% endif %}
 
-<a href="/">タイトルに戻る</a>
 
-<p><img src="img/ji1.png" alt="テスト画像" width="30" height="30"></p>
+
+
 
 
 {% endblock %}
