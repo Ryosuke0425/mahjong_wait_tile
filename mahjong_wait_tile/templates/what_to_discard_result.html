@@ -44,7 +44,7 @@
 
 
 {% for i in range(14) %}
-  {% if result_1[i] != [] and result_1[i] not in result_1[:i] %}
+  {% if result_1[i] != [] and result_2[i] not in result_2[:i] %}
       <div class="card w-50 mb-3" style="margin: auto;">
         <h5 class="card-title">
           <p class="alert alert-primary" style="text-align: center;"><img src={{ "../static/img/" + result_2[i][0] + result_2[i][1] + ".png" }} alt="画像">

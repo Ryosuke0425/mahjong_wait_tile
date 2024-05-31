@@ -1,10 +1,3 @@
-
-
-
-
-//document.getElementById('naki_1').disabled = true;
-
-
 function change(){
     const naki_1 = document.getElementById('naki_1');
     const naki_1_check = document.querySelector('input[name="naki_1_check"]');
@@ -14,8 +7,6 @@ function change(){
 
 
 function change1(ischecked){
-    //console.log(ischecked);
-    //console.log(document.querySelector('input[name=naki_1]:checked').value == 'kan_true');
     document.getElementById('naki_1').disabled = !ischecked;
     nakiTrue = nakiCheck();
     const tsumo = document.getElementById('is_tsumo').checked;
@@ -23,25 +14,23 @@ function change1(ischecked){
 }
 
 
-
 function change2(ischecked){
-    //console.log(ischecked);
     document.getElementById('naki_2').disabled = !ischecked;
     nakiTrue = nakiCheck();
     const tsumo = document.getElementById('is_tsumo').checked;
     changeCheck(tsumo,nakiTrue);
 }
 
+
 function change3(ischecked){
-    //console.log(ischecked);
     document.getElementById('naki_3').disabled = !ischecked;
     nakiTrue = nakiCheck();
     const tsumo = document.getElementById('is_tsumo').checked;
     changeCheck(tsumo,nakiTrue);
 }
 
+
 function change4(ischecked){
-    //console.log(ischecked);
     document.getElementById('naki_4').disabled = !ischecked;
     nakiTrue = nakiCheck();
     const tsumo = document.getElementById('is_tsumo').checked;
@@ -50,42 +39,8 @@ function change4(ischecked){
 
 
 function tsumoRonClick(tsumo){
-        //document.getElementById('is_riichi').disabled = !tsumo;
-        //document.getElementById('is_daburu_riichi').disabled = !tsumo;
-        //document.getElementById('is_ippatsu').disabled = !tsumo;
-        //const nakiCheck = document.getElementsByClassName('naki_check');
-        //var naki_true = false;
-        //for(var i = 0;i < nakiCheck.length;i++){
-        //    naki_true = naki_true || nakiCheck[i].checked;
-        //}
         var nakiTrue = nakiCheck();
         changeCheck(tsumo,nakiTrue);
-        //console.log(nakiTrue);
-        //document.getElementById('is_haitei').disabled = !tsumo; //ok
-        //document.getElementById('is_rinshan').disabled = !tsumo; //ok
-        //document.getElementById('is_houtei').disabled = tsumo; //ok
-        //document.getElementById('is_chankan').disabled = tsumo; //ok
-        //document.getElementById('is_tenhou').disabled = !(tsumo&&!nakiTrue);
-        //document.getElementById('is_chiihou').disabled = !(tsumo&&!nakiTrue);
-        //document.getElementById('is_renhou').disabled = !(!tsumo&&!nakiTrue);
-
-
-        //if(tsumo == false){
-        //    //document.getElementById('is_riichi').checked = false;
-        //    //document.getElementById('is_daburu_riichi').checked = false;
-        //    //document.getElementById('is_ippatsu').checked = false;
-        //    document.getElementById('is_haitei').checked = false; //ok
-        //    document.getElementById('is_rinshan').checked = false; //ok
-        //    document.getElementById('is_tenhou').checked = false;
-        //    document.getElementById('is_chiihou').checked = false;
-        //}else{
-        //    document.getElementById('is_houtei').checked = false; //ok
-        //    document.getElementById('is_chankan').checked = false; //ok
-        //    document.getElementById('is_renhou').checked = false;
-        //}
-
-
-
 }
 
 function nakiCheck(){
@@ -94,24 +49,19 @@ function nakiCheck(){
     for(var i = 0;i < naki.length;i++){
         result = result || naki[i].checked;
     }
-    //for(var i = 0;i < 4;i++){
-    //    const naki = document.getElementById('nakicheck' + String(i+1)).checked;
-    //    const kanFalse = document.querySelector('input[name=naki_' + String(i+1) + ']:checked').value == 'kan_true';
-    //    result = result || (naki && !kanFalse);
-    //}
     return result;
 }
 
 //暗槓以外の鳴きならtrue,暗槓ならfalseを返す    
-function kanFalseCheck(){
-    var result = false;
-    for(var i = 0;i < 4;i++){
-        const naki = document.getElementById('nakicheck' + String(i+1)).checked;
-        const kanFalse = document.querySelector('input[name=naki_' + String(i+1) + ']:checked').value == 'kan_false';
-        result = result || (naki && !kanFalse);
-    }
-    return result;
-}
+//function kanFalseCheck(){
+//    var result = false;
+//    for(var i = 0;i < 4;i++){
+//        const naki = document.getElementById('nakicheck' + String(i+1)).checked;
+//        const kanFalse = document.querySelector('input[name=naki_' + String(i+1) + ']:checked').value == 'kan_false';
+//        result = result || (naki && !kanFalse);
+//    }
+//    return result;
+//}
 
 
 //暗槓のみtrueを返す
@@ -176,12 +126,14 @@ function changeCheck(tsumo,nakiTrue){
     deleteCheck();
 }
 
+
 function yakuCheck(){
     const nakiTrue = nakiCheck();
     const tsumo = document.getElementById('is_tsumo').checked;
     changeCheck(tsumo,nakiTrue);
     //deleteCheck();
 }
+
 
 function deleteCheck(){
     yakus = document.getElementsByClassName('yaku');
@@ -191,7 +143,6 @@ function deleteCheck(){
             yakus[i].checked = false;
         }
     }
-
 }
 
 
@@ -276,19 +227,13 @@ function check(){
 
 
 function countCheck(){
-    //const man = document.getElementById('man').value + document.getElementById('dora_man').value;
-    //const pin = document.getElementById('pin').value + document.getElementById('dora_pin').value;
-    //const sou = document.getElementById('sou').value + document.getElementById('dora_sou').value;
-    //const honors = document.getElementById('honors').value + document.getElementById('dora_honors').value;
     let text = "";
     let tf = false;
     const types = ['man','pin','sou','honors'];
     var array = {'man':'','pin':'','sou':'','honors':''};
-    //console.log(document.getElementById('dora_man').value);
 
     array[document.querySelector('input[name=win_tile_type]:checked').value] += document.getElementById('win_tile_num').value;
 
-    //document.querySelector('input[name=naki_' + String(i+1) + '_type]:checked').value;
     for(var i =0; i < 4;i++){
         if(document.getElementById('nakicheck' + String(i+1)).checked==true){
             array[document.querySelector('input[name=naki_' + String(i+1) + '_type]:checked').value] += document.getElementById('naki_'+String(i+1)+'_num').value;
@@ -299,11 +244,6 @@ function countCheck(){
         array[types[i]] = array[types[i]].replace(/0/g,'5');
     }
 
-
-
-
-
-
     for(var i = 0;i<9;i++){
         for(var j = 0;j < types.length; j++){
             //if((array[type[j]].match(/String(i)/g) || []).length > 4){
@@ -313,16 +253,6 @@ function countCheck(){
             }
         }
     }
-
-    //for(var i = 0;i < types.length;i++){
-    //    array[types[i]] = array[types[i]].replace(/0/g,)
-    //}
-    //const result = array.map((x) => x.replace(/0/g,'5'));
-    //console.log(('iu'.match(/a/g) || []).length);
-    console.log(array);
-    //console.log((array[type[0]].match(/(1+1)/g) || []).length);
-    //console.log(array[type[0]].match(/String(1)/g || []).length);
-    //console.log(array[type[j]].match(/String(i+1)/g || []).length);
     return '';
 }
 
@@ -333,7 +263,6 @@ function countCheck(){
 
 
 function chiCheck(i,value){
-    //let text = "鳴き" + String(i+1) +":";
     let text = "";
     if(document.querySelector('input[name=naki_' + String(i+1) + '_type]:checked').value == 'honors'){
         text += "字牌チーはできません。\n";
@@ -357,7 +286,6 @@ function chiCheck(i,value){
 }
 
 function ponCheck(i,value){
-    //let text = "鳴き" + String(i+1) +":";
     let text = "";
     const isHonors = document.querySelector('input[name=naki_' + String(i+1) + '_type]:checked').value == 'honors';
     if (value.length!=3){
@@ -383,7 +311,6 @@ function ponCheck(i,value){
 }
 
 function kanCheck(i,value){
-    //let text = "鳴き" + String(i+1) +":";
     let text = "";
     //この鳴きが字牌かどうか
     const isHonors = document.querySelector('input[name=naki_' + String(i+1) + '_type]:checked').value == 'honors';
@@ -402,8 +329,6 @@ function kanCheck(i,value){
             }
         }
     }
-    //console.log(document.querySelector('input[name=naki_' + String(i+1) + '_type]:checked').value == 'honors');
-    //console.log(honorsCheck(value));
     if(text.length != 0){
         text = "鳴き" + String(i+1) +" : " + text;
     }
@@ -422,10 +347,7 @@ function ChiPonClick(n){
 }
 
 function KanClick(n){
-    //console.log(document.getElementById('naki_' + String(n) + '_num'));
-    //console.log(document.getElementById('naki_' + String(n) + '_num').maxLength);
     document.getElementById('naki_' + String(n) + '_num').maxLength = 4;
     document.getElementById('naki_' + String(n) + '_num').value = "";
     yakuCheck();
-    //console.log(document.getElementById('naki_' + String(n) + '_num').maxlength);
 }
