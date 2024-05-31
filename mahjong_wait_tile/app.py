@@ -250,6 +250,8 @@ def what_to_discard():
             result_2 = make_path(man=man,pin=pin,sou=sou,honors=honors)
         except (ValueError,AssertionError,IndexError):
             return render_template("error.html")
+        print(result_1)
+        print(result_2)
         return render_template("what_to_discard_result.html",result_1=result_1,result_2=result_2)
 
 
