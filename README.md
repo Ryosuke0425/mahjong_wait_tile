@@ -49,7 +49,8 @@ Pythonanywhere
 * 入力が完了したら計算ボタンを押す。
 ![image](https://github.com/Ryosuke0425/mahjong_wait_tile/assets/168053509/212aada5-45a3-432a-8501-a0adafd72289)
 
-
+* なお、字牌は東(1),南(2),西(3),北(4),白(5),發(6),中(7)を入力し、赤ドラは0を入力する。
+* 牌の枚数が違ったり文字のミスがあるとエラー画面が表示される
 
 ![image](https://github.com/Ryosuke0425/mahjong_wait_tile/assets/168053509/4eb9d6d3-44f2-4393-8388-c5f0bd8b3dae)
 
@@ -70,8 +71,7 @@ Pythonanywhere
 * 待ち牌がすべて表示される
 ![image](https://github.com/Ryosuke0425/mahjong_wait_tile/assets/168053509/d5fbb949-0108-46b3-a20c-50f91d9085b8)
 
-* なお、字牌は東(1),南(2),西(3),北(4),白(5),發(6),中(7)を入力し、赤ドラは0を入力する。
-* 牌の枚数が違ったり文字のミスがあるとエラー画面が表示される
+
 
 
 
