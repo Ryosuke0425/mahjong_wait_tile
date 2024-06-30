@@ -31,4 +31,18 @@ Pythonanywhere
 
 ### 待ち牌計算
 
+
+![image](https://github.com/Ryosuke0425/mahjong_wait_tile/assets/168053509/bdb7d987-23c7-4c2c-b4fd-128b6bb1df87)
+* 牌を合計13枚入力する
+* 萬子,筒子,索子は数字をそのまま入力
+* 字牌は東(1),南(2),西(3),北(4),白(5),發(6),中(7)を入力する。
+* 入力が完了したら計算ボタンを押す
+* 牌の枚数が違ったり文字のミスがあるとエラー画面が表示される
+
+![image](https://github.com/Ryosuke0425/mahjong_wait_tile/assets/168053509/d5fbb949-0108-46b3-a20c-50f91d9085b8)
+* 待ち牌がすべて表示される
+
+
+
+
 ### どの牌を切れば聴牌できるかを計算
