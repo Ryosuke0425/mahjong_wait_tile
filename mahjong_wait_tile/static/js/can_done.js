@@ -76,22 +76,31 @@ function kanFalseCheck1(){
 }
 
 
+
+//暗槓以外の鳴きをしている際にtrueを返す
+function nakiOtherThanKanFalseCheck(){
+    const naki = document.getElementsByClassName('naki_check');
+    var result = false;
+    for(var i = 0;i < naki.length;i++){
+        const kanFalse = document.querySelector('input[name=naki_' + String(i+1) + ']:checked').value == 'kan_false';
+        result = result || (naki[i].checked && !kanFalse);
+    }
+    return result;
+}
+
 function changeCheck(tsumo,nakiTrue){
     const isRiichi = document.getElementById('is_riichi').checked;
     const isDaburuRiichi = document.getElementById('is_daburu_riichi').checked;
-    const isIppatsu = document.getElementById('is_ippatsu').checked;
+    var isIppatsu = document.getElementById('is_ippatsu').checked;
     const isHaitei = document.getElementById('is_haitei').checked;
     const isHoutei = document.getElementById('is_houtei').checked;
     const isRinshan = document.getElementById('is_rinshan').checked;
     const isChankan = document.getElementById('is_chankan').checked;
-    const isTenhou = document.getElementById('is_tenhou').checked;
-    const isRenhou = document.getElementById('is_renhou').checked;
-    const isChiihou = document.getElementById('is_chiihou').checked;
+
+    const isFirst = document.getElementById('is_first').checked;
 
     const kanFalse = kanFalseCheck1();
-
-  
-    const isFirst = isTenhou || isRenhou || isChiihou;
+    const nakiOtherThanKanFalse = nakiOtherThanKanFalseCheck();
     const isNotFirst = isRiichi || isDaburuRiichi || isIppatsu || isHaitei || isHoutei || isRinshan || isChankan;
 
 
@@ -107,22 +116,36 @@ function changeCheck(tsumo,nakiTrue){
     //document.getElementById('is_renhou').disabled = !(!tsumo && !nakiTrue && !isNotFirst);
     //document.getElementById('is_chiihou').disabled = !(tsumo && !nakiTrue && !isTenhou && !isNotFirst);
     //document.getElementById('is_riichi').disabled = !(!kanFalse && !isDaburuRiichi && !isFirst);
-    document.getElementById('is_riichi').disabled = !((!nakiTrue || kanFalse) && !isDaburuRiichi && !isFirst);
+
+    //document.getElementById('is_riichi').disabled = !((!nakiTrue || kanFalse) && !isDaburuRiichi && !isFirst);
+    document.getElementById('is_riichi').disabled = !(!nakiOtherThanKanFalse && !isDaburuRiichi && !isFirst);
+
     //document.getElementById('is_daburu_riichi').disabled = !(!kanFalse && !isRiichi && !isFirst && !(isIppatsu && (isHaitei || isHoutei || isChankan || !kanFalse)));
-    document.getElementById('is_daburu_riichi').disabled = !((!nakiTrue || kanFalse) && !isRiichi && !isFirst && !(isIppatsu && (isHaitei || isHoutei || isChankan || kanFalse)));
+    //document.getElementById('is_daburu_riichi').disabled = !((!nakiTrue || kanFalse) && !isRiichi && !isFirst && !(isIppatsu && (isHaitei || isHoutei || isChankan || kanFalse)));
+    document.getElementById('is_daburu_riichi').disabled = !(!nakiOtherThanKanFalse && !isRiichi && !isFirst && !(isIppatsu && (isHaitei || isHoutei || isChankan || kanFalse)));
+
+
+
+
     //document.getElementById('is_ippatsu').disabled = !(!kanFalse && (isRiichi || isDaburuRiichi) && !isRinshan && !isFirst && !(isDaburuRiichi && (isHaitei || isHoutei || isChankan || !kanFalse)));
-    document.getElementById('is_ippatsu').disabled = !((!nakiTrue || kanFalse) && (isRiichi || isDaburuRiichi) && !isRinshan && !isFirst && !(isDaburuRiichi && (isHaitei || isHoutei || isChankan || kanFalse)));
+    //document.getElementById('is_ippatsu').disabled = !((!nakiTrue || kanFalse) && (isRiichi || isDaburuRiichi) && !isRinshan && !isFirst && !(isDaburuRiichi && (isHaitei || isHoutei || isChankan || kanFalse)));
+    document.getElementById('is_ippatsu').disabled = !(!nakiOtherThanKanFalse && (isRiichi || isDaburuRiichi) && !isRinshan && !isFirst && !(isDaburuRiichi && (isHaitei || isHoutei || isChankan || kanFalse)));
+    //if(document.getElementById('is_ippatsu').disabled == true){
+    //   document.getElementById('is_ippatsu').checked = false;
+    //    isIppatsu = false
+    //}
+
     //console.log(!(isDaburuRiichi && (isHaitei || isHoutei || isChankan)));
-    //console.log(!(isDaburuRiichi && (isHaitei || isHoutei || isChankan || (!nakiTrue && !kanFalse))));
+    //console.log(isIppatsu);
 
     document.getElementById('is_haitei').disabled = !(tsumo && !isRinshan && !isFirst && !(isDaburuRiichi && isIppatsu));
     document.getElementById('is_houtei').disabled = !(!tsumo && !isChankan && !isFirst && !(isDaburuRiichi && isIppatsu));
     document.getElementById('is_rinshan').disabled = !(tsumo && !isIppatsu && !isHaitei && !isFirst)
     document.getElementById('is_chankan').disabled = !(!tsumo && !isHoutei && !isFirst && !(isDaburuRiichi && isIppatsu));
-    
-    document.getElementById('is_tenhou').disabled = !(tsumo && !nakiTrue && !isChiihou && !isNotFirst);
-    document.getElementById('is_renhou').disabled = !(!tsumo && !nakiTrue && !isNotFirst);
-    document.getElementById('is_chiihou').disabled = !(tsumo && !nakiTrue && !isTenhou && !isNotFirst);
+    //document.getElementById('is_tenhou').disabled = !(tsumo && !nakiTrue && !isChiihou && !isNotFirst && isEast);
+    //document.getElementById('is_renhou').disabled = !(!tsumo && !nakiTrue && !isNotFirst);
+    //document.getElementById('is_chiihou').disabled = !(tsumo && !nakiTrue && !isTenhou && !isNotFirst && !isEast);
+    document.getElementById('is_first').disabled = !(tsumo && !nakiTrue && !isNotFirst);
     deleteCheck();
 }
 
@@ -131,7 +154,6 @@ function yakuCheck(){
     const nakiTrue = nakiCheck();
     const tsumo = document.getElementById('is_tsumo').checked;
     changeCheck(tsumo,nakiTrue);
-    //deleteCheck();
 }
 
 
@@ -139,7 +161,6 @@ function deleteCheck(){
     yakus = document.getElementsByClassName('yaku');
     for(var i = 0;i < yakus.length; i++){
         if(yakus[i].checked==true && yakus[i].disabled==true){
-            //console.log(yakus[i].checked)
             yakus[i].checked = false;
         }
     }
@@ -148,7 +169,6 @@ function deleteCheck(){
 
 function check(){
     let text = "";
-    //let result = true;
     const man = document.getElementById('man').value;
     const pin = document.getElementById('pin').value;
     const sou = document.getElementById('sou').value;
@@ -182,14 +202,6 @@ function check(){
     for(var i = 0;i<melds.length;i++){
         const naki_i = document.getElementsByName('naki_' + String(i+1));
         if(melds[i].checked==true){
-            //for (var j = 0;j < naki_i.length;j++){
-             //   if(naki_i[j].value=="chi"){
-             //       text += chiCheck(i,document.getElementById('naki_' + String(i+1) + '_num').value);
-             //   }else if(naki_i[j].value=="pon"){
-             //       text += ponCheck(i,document.getElementById('naki_' + String(i+1) + '_num').value);
-             //   }else if(naki_i[j].value=="kan_false" || naki_i[j].value=="kan_true"){
-             //   }
-            //}
             const naki_i_num = document.getElementById('naki_' + String(i+1) + '_num').value;
             if(naki_i[0].checked){
                 text += chiCheck(i,naki_i_num);
@@ -203,24 +215,15 @@ function check(){
             }
         }
     }
-
     if(all.length != 14){
-        //result = false;
         text +="牌の合計枚数が合いません\n";
     }
     text += countCheck();
-
-
-
-    //alert(text);
     if(text.length != 0){
         //alert(text.length);
         alert(text);
     }
-    //return text.length==0;
     countCheck();
-    //onsole.log('a');
-    //console.log('aiueo');
     return text.length==0;
 }
 
@@ -246,9 +249,7 @@ function countCheck(){
 
     for(var i = 0;i<9;i++){
         for(var j = 0;j < types.length; j++){
-            //if((array[type[j]].match(/String(i)/g) || []).length > 4){
             if(array[types[j]].split(String(i+1)).length > 5){
-                //console.log("miss");
                 return "同じ牌は5枚以上入力できません\n";
             }
         }
