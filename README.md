@@ -111,7 +111,8 @@ Pythonanywhere
 ![image](https://github.com/Ryosuke0425/mahjong_wait_tile/assets/168053509/b0f9c02a-92f4-422e-b021-9e94a483dfac)
 
 
-
+### お借りした画像
+https://majandofu.com/mahjong-images
 
 
 
