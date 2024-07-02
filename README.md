@@ -55,6 +55,26 @@ Pythonanywhere
 ![cal3](https://github.com/Ryosuke0425/mahjong_wait_tile/assets/168053509/8d194b86-d994-4c78-905c-f36e5effce18)
 
 #### 鳴きがある場合
+* 手持ち牌の欄には上がり牌、鳴き牌以外の全ての牌を入力する。
+* 上がり牌の欄にはツモかロンのどちらかを選択し、上がり牌を一枚入力する。
+* 鳴きが無ければ鳴きの欄には何も入力しなくてよい。
+![cal4](https://github.com/Ryosuke0425/mahjong_wait_tile/assets/168053509/76c12cd0-1564-4c71-9fda-5fada78c0686)
+
+
+
+* ドラは表示牌を入力する。
+* 立直などのオプションを入力する。
+* 入力が完了したら計算ボタンを押す。
+![cal5](https://github.com/Ryosuke0425/mahjong_wait_tile/assets/168053509/6db374c0-014c-4a7b-ad4e-a08ee6a2387d)
+
+
+* なお、字牌は東(1),南(2),西(3),北(4),白(5),發(6),中(7)を入力し、赤ドラは0を入力する。
+* 牌の枚数が違ったり文字のミスがあるとエラー画面が表示される
+![cal6](https://github.com/Ryosuke0425/mahjong_wait_tile/assets/168053509/f288f94c-5ff3-4bd5-b75e-36434fc2354f)
+
+
+
+
 
 ### 待ち牌計算
 
