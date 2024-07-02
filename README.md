@@ -47,12 +47,12 @@ Pythonanywhere
 * ドラは表示牌を入力する。
 * 立直などのオプションを入力する。
 * 入力が完了したら計算ボタンを押す。
-![image](https://github.com/Ryosuke0425/mahjong_wait_tile/assets/168053509/212aada5-45a3-432a-8501-a0adafd72289)
+![cal2](https://github.com/Ryosuke0425/mahjong_wait_tile/assets/168053509/b7c70b4f-6a6a-46dd-8a3e-f32a76a437de)
 
 * なお、字牌は東(1),南(2),西(3),北(4),白(5),發(6),中(7)を入力し、赤ドラは0を入力する。
 * 牌の枚数が違ったり文字のミスがあるとエラー画面が表示される
 
-![image](https://github.com/Ryosuke0425/mahjong_wait_tile/assets/168053509/4eb9d6d3-44f2-4393-8388-c5f0bd8b3dae)
+![cal3](https://github.com/Ryosuke0425/mahjong_wait_tile/assets/168053509/8d194b86-d994-4c78-905c-f36e5effce18)
 
 #### 鳴きがある場合
 
